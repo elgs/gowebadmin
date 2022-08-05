@@ -5,6 +5,7 @@
     width: 800px;
     padding-bottom: 20px;
     .server-block {
+      padding: 1.25rem;
       margin: 25px;
       .input-set {
         height: 30px;
@@ -18,8 +19,39 @@
       }
       background-color: var(--white-dark);
       .host-block {
-        margin: 10px 0;
+        margin: 5px 0;
         background-color: var(--grey-lightest);
+        .host-header {
+          padding: 0.8rem 1.25rem;
+          cursor: pointer;
+          font-weight: 500;
+          transition: 0.4s;
+
+          &.active,
+          &:hover {
+            background-color: var(--grey-lighter);
+          }
+
+          &:after {
+            content: "+"; /* Unicode character for "plus" sign (+) */
+            font-size: 13px;
+            color: #777;
+            float: right;
+            margin-left: 5px;
+          }
+
+          &.active:after {
+            content: "-"; /* Unicode character for "minus" sign (-) */
+          }
+        }
+        .host-panel {
+          max-height: 0;
+          overflow: hidden;
+          transition: max-height 0.2s ease-out;
+          .host-panel-container {
+            padding: 1.25rem;
+          }
+        }
       }
     }
 

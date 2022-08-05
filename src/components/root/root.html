@@ -21,38 +21,46 @@
             <input type="checkbox" placeholder="Disabled" lw-model="server.disabled">
          </div>
          <div class="host-block ppwui card" lw-for="host in server.hosts">
-            <div class="input-set">
-               <div class="input-label">Host Name:</div>
-               <input type="text" class="ppwui input small" placeholder="Host Name" lw-model="host.name">
+            <div class="host-header" lw-on:click="toggleHostHeader($event, host)" lw lw-class:active="host.uiActive">
+               host.name
             </div>
-            <div class="input-set" lw-if="host.https_redirect_port===0">
-               <div class="input-label">Web Root Path:</div>
-               <input type="text" class="ppwui input small" placeholder="Path" lw-model="host.path">
-            </div>
-            <div class="input-set" lw-if="server.type==='http'">
-               <div class="input-label">Https Redirect:</div>
-               <input type="number" class="ppwui input small" placeholder="Https Redirect Port"
-                  lw-model="host.https_redirect_port" max="65535" min="0">
-            </div>
-            <div class="input-set" lw-if="server.type==='https'">
-               <div class="input-label">Key Path:</div>
-               <input type="text" class="ppwui input small" placeholder="Key Path" lw-model="host.key_path">
-            </div>
-            <div class="input-set" lw-if="server.type==='https'">
-               <div class="input-label">Cert Path:</div>
-               <input type="text" class="ppwui input small" placeholder="Cert Path" lw-model="host.cert_path">
-            </div>
-            <div class="input-set" lw-if="host.https_redirect_port===0">
-               <div class="input-label">Disable Listing:</div>
-               <input type="checkbox" placeholder="Disable Dir Listing" lw-model="host.disable_dir_listing">
-            </div>
-            <div class="input-set">
-               <div class="input-label">Disabled:</div>
-               <input type="checkbox" placeholder="Disabled" lw-model="host.disabled">
-            </div>
-            <div class="button-block">
-               <button lw-on:click="deleteHost(host, server)" class="ppwui button danger small">Delete Host</button>
-               <button lw-on:click="getHostJSON(host, server)" class="ppwui button small">Get JSON</button>
+            <div class="host-panel">
+               <div class="host-panel-container">
+                  <div class="input-set">
+                     <div class="input-label">Host Name:</div>
+                     <input type="text" class="ppwui input small" placeholder="Host Name" lw-model="host.name">
+                  </div>
+                  <div class="input-set" lw-if="host.https_redirect_port===0">
+                     <div class="input-label">Web Root Path:</div>
+                     <input type="text" class="ppwui input small" placeholder="Path" lw-model="host.path">
+                  </div>
+                  <div class="input-set" lw-if="server.type==='http'">
+                     <div class="input-label">Https Redirect:</div>
+                     <input type="number" class="ppwui input small" placeholder="Https Redirect Port"
+                        lw-model="host.https_redirect_port" max="65535" min="0">
+                  </div>
+                  <div class="input-set" lw-if="server.type==='https'">
+                     <div class="input-label">Key Path:</div>
+                     <input type="text" class="ppwui input small" placeholder="Key Path" lw-model="host.key_path">
+                  </div>
+                  <div class="input-set" lw-if="server.type==='https'">
+                     <div class="input-label">Cert Path:</div>
+                     <input type="text" class="ppwui input small" placeholder="Cert Path" lw-model="host.cert_path">
+                  </div>
+                  <div class="input-set" lw-if="host.https_redirect_port===0">
+                     <div class="input-label">Disable Listing:</div>
+                     <input type="checkbox" placeholder="Disable Dir Listing" lw-model="host.disable_dir_listing">
+                  </div>
+                  <div class="input-set">
+                     <div class="input-label">Disabled:</div>
+                     <input type="checkbox" placeholder="Disabled" lw-model="host.disabled">
+                  </div>
+                  <div class="button-block">
+                     <button lw-on:click="deleteHost(host, server)" class="ppwui button danger small">Delete
+                        Host</button>
+                     <button lw-on:click="getHostJSON(host, server)" class="ppwui button small">Get JSON</button>
+                  </div>
+               </div>
             </div>
          </div>
          <div class="button-block">

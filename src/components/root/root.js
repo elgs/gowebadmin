@@ -17,15 +17,20 @@ customElements.define('gowebadmin-root',
       getNewHost() {
          return {
             name: 'example.com',
-            "path": "/path/to/webroot",
-            "cert_path": "/path/to/certfile",
-            "key_path": "/path/to/keyfile",
+            path: "/path/to/webroot",
+            cert_path: "/path/to/certfile",
+            key_path: "/path/to/keyfile",
          };
       }
 
       newHost(server) {
          server.hosts ??= [];
-         server.hosts.push(this.getNewHost());
+         const newHost = this.getNewHost();
+         server.hosts.push(newHost);
+         setTimeout(() => {
+            const hostPanel = newHost.getDom().querySelector('.host-panel');
+            hostPanel.style.maxHeight = hostPanel.scrollHeight + 'px';
+         });
       }
 
       deleteHost(host, server) {
@@ -40,12 +45,13 @@ customElements.define('gowebadmin-root',
       // server
       newServer() {
          this.servers ??= [];
-         this.servers.push({
+         const server = {
             name: 'New Server',
             type: 'https',
             listen: '[::]:443',
-            hosts: [this.getNewHost()],
-         });
+         };
+         this.servers.push(server);
+         this.newHost(server);
       }
 
       async applyServer(server) {
@@ -70,6 +76,18 @@ customElements.define('gowebadmin-root',
 
       getServersJSON() {
          console.log(JSON.stringify(this.servers, null, 2));
+      }
+
+      // toggle host header
+      toggleHostHeader(event, host) {
+         const panel = host.getDom().querySelector('.host-panel');
+         if (panel.style.maxHeight) {
+            panel.style.maxHeight = null;
+            host.uiActive = false;
+         } else {
+            panel.style.maxHeight = panel.scrollHeight + `px`;
+            host.uiActive = true;
+         }
       }
    }
 );
