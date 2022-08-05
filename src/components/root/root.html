@@ -3,62 +3,70 @@
       <div class="server-block ppwui card" lw-for="server in servers">
          <div class="input-set">
             <span class="input-label">Server Name:</span>
-            <input type="text" class="ppwui input small" placeholder="Server Name" lw-model="server.name">
+            <input type="text" class="ppwui input small" placeholder="Server Name" lw-model="server.name"
+               lw-on:input="updateServerJSON(server)">
          </div>
          <div class="input-set">
             <div class="input-label">Listen on:</div>
-            <input type="text" class="ppwui input small" placeholder="Listen" lw-model="server.listen">
+            <input type="text" class="ppwui input small" placeholder="Listen" lw-model="server.listen"
+               lw-on:input="updateServerJSON(server)">
          </div>
-         <div class="input-set">
+         <div class=" input-set">
             <div class="input-label">Server Type:</div>
-            <select lw-model="server.type" lw-on:change="update()">
+            <select lw-model="server.type" lw-on:input="update();updateServerJSON(server)">
                <option>https</option>
                <option>http</option>
             </select>
          </div>
          <div class="input-set">
             <div class="input-label">Disabled:</div>
-            <input type="checkbox" placeholder="Disabled" lw-model="server.disabled">
+            <input type="checkbox" placeholder="Disabled" lw-model="server.disabled"
+               lw-on:input="updateServerJSON(server)">
          </div>
          <div class="host-block ppwui card" lw-for="host in server.hosts">
-            <div class="host-header" lw-on:click="toggleHostHeader($event, host)" lw lw-class:active="host.uiActive">
-               host.name
+            <div class="host-header" lw-on:click="toggleHostHeader(host)" lw-class:active="host.uiActive">
+               <span class="host-header-label" lw>host.name</span>
             </div>
             <div class="host-panel">
                <div class="host-panel-container">
                   <div class="input-set">
                      <div class="input-label">Host Name:</div>
-                     <input type="text" class="ppwui input small" placeholder="Host Name" lw-model="host.name">
+                     <input type="text" class="ppwui input small" placeholder="Host Name" lw-model="host.name"
+                        lw-on:input="updateServerJSON(server)">
                   </div>
                   <div class="input-set" lw-if="host.https_redirect_port===0">
                      <div class="input-label">Web Root Path:</div>
-                     <input type="text" class="ppwui input small" placeholder="Path" lw-model="host.path">
+                     <input type="text" class="ppwui input small" placeholder="Path" lw-model="host.path"
+                        lw-on:input="updateServerJSON(server)">
                   </div>
                   <div class="input-set" lw-if="server.type==='http'">
                      <div class="input-label">Https Redirect:</div>
                      <input type="number" class="ppwui input small" placeholder="Https Redirect Port"
-                        lw-model="host.https_redirect_port" max="65535" min="0">
+                        lw-model="host.https_redirect_port" max="65535" min="0" lw-on:input="updateServerJSON(server)">
                   </div>
                   <div class="input-set" lw-if="server.type==='https'">
                      <div class="input-label">Key Path:</div>
-                     <input type="text" class="ppwui input small" placeholder="Key Path" lw-model="host.key_path">
+                     <input type="text" class="ppwui input small" placeholder="Key Path" lw-model="host.key_path"
+                        lw-on:input="updateServerJSON(server)">
                   </div>
                   <div class="input-set" lw-if="server.type==='https'">
                      <div class="input-label">Cert Path:</div>
-                     <input type="text" class="ppwui input small" placeholder="Cert Path" lw-model="host.cert_path">
+                     <input type="text" class="ppwui input small" placeholder="Cert Path" lw-model="host.cert_path"
+                        lw-on:input="updateServerJSON(server)">
                   </div>
                   <div class="input-set" lw-if="host.https_redirect_port===0">
                      <div class="input-label">Disable Listing:</div>
-                     <input type="checkbox" placeholder="Disable Dir Listing" lw-model="host.disable_dir_listing">
+                     <input type="checkbox" placeholder="Disable Dir Listing" lw-model="host.disable_dir_listing"
+                        lw-on:input="updateServerJSON(server)">
                   </div>
                   <div class="input-set">
                      <div class="input-label">Disabled:</div>
-                     <input type="checkbox" placeholder="Disabled" lw-model="host.disabled">
+                     <input type="checkbox" placeholder="Disabled" lw-model="host.disabled"
+                        lw-on:input="updateServerJSON(server)">
                   </div>
                   <div class="button-block">
                      <button lw-on:click="deleteHost(host, server)" class="ppwui button danger small">Delete
                         Host</button>
-                     <button lw-on:click="getHostJSON(host, server)" class="ppwui button small">Get JSON</button>
                   </div>
                </div>
             </div>
@@ -67,14 +75,22 @@
             <button lw-on:click="newHost(server)" class="ppwui button primary small">New Host</button>
             <button lw-on:click="applyServer(server)" class="ppwui button small warning">Apply Changes</button>
             <button lw-on:click="deleteServer(server)" class="ppwui button danger small">Delete Server</button>
-            <button lw-on:click="getServerJSON(server)" class="ppwui button small">Get JSON</button>
+            <button lw-on:click="toggleServerJSON(server)" class="ppwui button small">Get JSON</button>
+         </div>
+
+         <div class="ppwui card server-json-panel" lw-if="server.showConfigEditor">
+            <div class="server-json"></div>
          </div>
       </div>
 
       <div class="button-block">
          <button lw-on:click="newServer()" class="ppwui button primary small">New Server</button>
          <button lw-on:click="applyServers()" class="ppwui button small warning">Apply Changes</button>
-         <button lw-on:click="getServersJSON()" class="ppwui button small">Get JSON</button>
+         <button lw-on:click="toggleServersJSON()" class="ppwui button small">Get JSON</button>
+      </div>
+
+      <div class="ppwui card servers-json-panel" lw-if="showConfigEditor">
+         <div class="servers-json"></div>
       </div>
    </div>
 </div>
