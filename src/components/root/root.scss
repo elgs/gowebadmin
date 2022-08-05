@@ -1,0 +1,31 @@
+.servers {
+  padding-bottom: 20px;
+  .server-block {
+    margin: 25px;
+    .input-set {
+      height: 30px;
+      display: flex;
+      align-items: center;
+      .input-label {
+        flex: 0 0 120px;
+        font-size: 11pt;
+      }
+      margin-bottom: 10px;
+    }
+    background-color: var(--white-dark);
+    .host-block {
+      margin: 10px 0;
+      background-color: var(--grey-lightest);
+    }
+  }
+
+  .button-block {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 15px;
+    button {
+      width: 100px;
+    }
+  }
+}

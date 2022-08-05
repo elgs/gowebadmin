@@ -1,5 +1,6 @@
 import LWElement from './../../lib/lw-element.js';
 import ast from './ast.js';
+import { api } from '../../services/api-client.js';
 
 customElements.define('gowebadmin-root',
    class extends LWElement {  // LWElement extends HTMLElement
@@ -8,9 +9,14 @@ customElements.define('gowebadmin-root',
       }
 
       // derived from LWElement
-      // domReady() {
-      //    console.log('Dom is ready');
-      // }
+      async domReady() {
+         this.servers = await api.get('/api');
+         this.update();
+      }
+
+      printServer() {
+         console.log(this.servers);
+      }
 
       // inputReady() {
       //    console.log('input is ready');

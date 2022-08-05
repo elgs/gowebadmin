@@ -1,1 +1,71 @@
-<div>gowebadmin-root works!</div>
+<div class="servers">
+   <div class="server-block ppwui card" lw-for="server in servers">
+      <div class="input-set">
+         <span class="input-label">Server Name:</span>
+         <input type="text" class="ppwui input small" placeholder="Server Name" lw-model="server.name">
+      </div>
+      <div class="input-set">
+         <div class="input-label">Disabled:</div>
+         <input type="checkbox" placeholder="Disabled" lw-model="server.disabled">
+      </div>
+      <div class="input-set">
+         <div class="input-label">Server Type:</div>
+         <select lw-model="server.type">
+            <option>https</option>
+            <option>http</option>
+         </select>
+      </div>
+      <div class="input-set">
+         <div class="input-label">Listen on:</div>
+         <input type="text" class="ppwui input small" placeholder="Listen" lw-model="server.listen">
+      </div>
+      <div class="host-block ppwui card" lw-for="host in server.hosts">
+         <div class="input-set">
+            <div class="input-label">Host Name:</div>
+            <input type="text" class="ppwui input small" placeholder="Host Name" lw-model="host.name">
+         </div>
+         <div class="input-set">
+            <div class="input-label">Disabled:</div>
+            <input type="checkbox" placeholder="Disabled" lw-model="host.disabled">
+         </div>
+         <div class="input-set">
+            <div class="input-label">Web Root Path:</div>
+            <input type="text" class="ppwui input small" placeholder="Path" lw-model="host.path">
+         </div>
+         <div class="input-set">
+            <div class="input-label">Disable Listing:</div>
+            <input type="checkbox" placeholder="Disable Dir Listing" lw-model="host.disable_dir_listing">
+         </div>
+         <div class="input-set">
+            <div class="input-label">Https Redirect:</div>
+            <input type="number" class="ppwui input small" placeholder="Https Redirect Port"
+               lw-model="host.https_redirect_port" max="65535" min="0">
+         </div>
+         <div class="input-set">
+            <div class="input-label">Key Path:</div>
+            <input type="text" class="ppwui input small" placeholder="Key Path" lw-model="host.key_path">
+         </div>
+         <div class="input-set">
+            <div class="input-label">Cert Path:</div>
+            <input type="text" class="ppwui input small" placeholder="Cert Path" lw-model="host.cert_path">
+         </div>
+         <div class="button-block">
+            <button class="ppwui button small warning">Apply Changes</button>
+            <button class="ppwui button danger small">Delete Host</button>
+            <button class="ppwui button small">Get JSON</button>
+         </div>
+      </div>
+      <div class="button-block">
+         <button class="ppwui button primary small">New Host</button>
+         <button class="ppwui button small warning">Apply Changes</button>
+         <button class="ppwui button danger small">Delete Server</button>
+         <button class="ppwui button small">Get JSON</button>
+      </div>
+   </div>
+
+   <div class="button-block">
+      <button class="ppwui button primary small">New Server</button>
+      <button class="ppwui button small warning">Apply Changes</button>
+      <button class="ppwui button small">Get JSON</button>
+   </div>
+</div>

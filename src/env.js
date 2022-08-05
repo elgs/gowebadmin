@@ -1,3 +1,3 @@
 export default {
-   // apiUrl: 'http://localhost:1234'
+   apiUrl: 'http://127.0.0.1:2022'
 };
