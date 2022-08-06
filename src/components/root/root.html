@@ -34,7 +34,7 @@
                      <input type="text" class="ppwui input small" placeholder="Host Name" lw-model="host.name"
                         lw-on:input="updateServerJSON(server)">
                   </div>
-                  <div class="input-set" lw-if="host.https_redirect_port===0">
+                  <div class="input-set" lw-if="server.type==='http' && host.https_redirect_port===0">
                      <div class="input-label">Web Root Path:</div>
                      <input type="text" class="ppwui input small" placeholder="Path" lw-model="host.path"
                         lw-on:input="updateServerJSON(server)">
@@ -54,7 +54,7 @@
                      <input type="text" class="ppwui input small" placeholder="Cert Path" lw-model="host.cert_path"
                         lw-on:input="updateServerJSON(server)">
                   </div>
-                  <div class="input-set" lw-if="host.https_redirect_port===0">
+                  <div class="input-set" lw-if="server.type==='http' && host.https_redirect_port===0">
                      <div class="input-label">Disable Listing:</div>
                      <input type="checkbox" placeholder="Disable Dir Listing" lw-model="host.disable_dir_listing"
                         lw-on:input="updateServerJSON(server)">
