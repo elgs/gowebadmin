@@ -73,7 +73,8 @@
          </div>
          <div class="button-block">
             <button lw-on:click="newHost(server)" class="ppwui button primary small">New Host</button>
-            <button lw-on:click="applyServer(server)" class="ppwui button small warning">Apply Changes</button>
+            <button lw-on:click="applyServer(server)" class="ppwui button small warning"
+               lw-class:loading="server.applyingServer">Apply Changes</button>
             <button lw-on:click="deleteServer(server)" class="ppwui button danger small">Delete Server</button>
             <button lw-on:click="toggleServerJSON(server)" class="ppwui button small">Get JSON</button>
          </div>
@@ -85,7 +86,8 @@
 
       <div class="button-block">
          <button lw-on:click="newServer()" class="ppwui button primary small">New Server</button>
-         <button lw-on:click="applyServers()" class="ppwui button small warning">Apply Changes</button>
+         <button lw-on:click="applyServers()" class="ppwui button small warning"
+            lw-class:loading="applyingServers">Apply Changes</button>
          <button lw-on:click="toggleServersJSON()" class="ppwui button small">Get JSON</button>
       </div>
 

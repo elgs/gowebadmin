@@ -52,9 +52,17 @@ customElements.define('gowebadmin-root',
       }
 
       async applyServer(server) {
+         server.applyingServer = true;
+         this.update();
          const serverData = this.getServerJSONData(server, true);
          const data = await api.post('/api/server/', serverData);
-         console.log(data);
+         if (data.err) {
+            alert(data.err);
+         }
+         setTimeout(() => {
+            server.applyingServer = false;
+            this.update();
+         }, 250);
       }
 
       deleteServer(server) {
@@ -85,9 +93,17 @@ customElements.define('gowebadmin-root',
 
       // servers
       async applyServers() {
+         this.applyingServers = true;
+         this.update();
          const serversData = this.servers.map(server => this.getServerJSONData(server));
          const data = await api.post('/api/servers/', serversData);
-         console.log(data);
+         if (data.err) {
+            alert(data.err);
+         }
+         setTimeout(() => {
+            this.applyingServers = false;
+            this.update();
+         }, 250);
       }
 
       updateServersJSON() {
