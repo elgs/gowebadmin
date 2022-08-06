@@ -28,7 +28,7 @@
           font-weight: 500;
           transition: 0.4s;
 
-          &.uiActive,
+          &.active,
           &:hover {
             background-color: var(--grey-lighter);
           }
@@ -41,7 +41,7 @@
             margin-left: 5px;
           }
 
-          &.uiActive:after {
+          &.active:after {
             content: "-";
           }
         }

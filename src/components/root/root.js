@@ -35,6 +35,7 @@ customElements.define('gowebadmin-root',
             path: "/path/to/webroot",
             cert_path: "/path/to/certfile",
             key_path: "/path/to/keyfile",
+            uiActive: true,
          };
       }
 
