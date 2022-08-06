@@ -46,7 +46,7 @@ customElements.define('gowebadmin-root',
          setTimeout(() => {
             this.updateServerJSON(server);
             const hostPanel = newHost.getDom().querySelector('.host-panel');
-            hostPanel.style.maxHeight = hostPanel.scrollHeight + 'px';
+            hostPanel.style.maxHeight = '1000px';
          });
       }
 
@@ -166,7 +166,7 @@ customElements.define('gowebadmin-root',
             panel.style.maxHeight = null;
             host.uiActive = false;
          } else {
-            panel.style.maxHeight = panel.scrollHeight + `px`;
+            panel.style.maxHeight = '1000px';
             host.uiActive = true;
          }
       }
