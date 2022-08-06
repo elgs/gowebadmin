@@ -28,21 +28,21 @@
           font-weight: 500;
           transition: 0.4s;
 
-          &.active,
+          &.uiActive,
           &:hover {
             background-color: var(--grey-lighter);
           }
 
           &:after {
-            content: "+"; /* Unicode character for "plus" sign (+) */
+            content: "+";
             font-size: 13px;
             color: #777;
             float: right;
             margin-left: 5px;
           }
 
-          &.active:after {
-            content: "-"; /* Unicode character for "minus" sign (-) */
+          &.uiActive:after {
+            content: "-";
           }
         }
         .host-panel {
