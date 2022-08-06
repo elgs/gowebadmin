@@ -15,6 +15,8 @@ customElements.define('gowebadmin-root',
          const token = sessionStorage.getItem('access_token');
          if (token) {
             await this.loadServers();
+         } else {
+            this.logout();
          }
       }
 
@@ -51,6 +53,10 @@ customElements.define('gowebadmin-root',
          const hostIndex = server.hosts.findIndex(h => h === host);
          server.hosts.splice(hostIndex, 1);
          this.updateServerJSON(server);
+      }
+
+      openHost(host, server) {
+         window.open(`${server.type}://${host.name}`, '_blank');
       }
 
       // server
@@ -207,6 +213,7 @@ customElements.define('gowebadmin-root',
 
       async login() {
          sessionStorage.setItem('access_token', this.loginToken);
+         this.loginToken = '';
          leanweb.urlHashPath = '#/';
          leanweb.urlHashParams = {};
          await this.loadServers();
