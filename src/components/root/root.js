@@ -12,7 +12,10 @@ customElements.define('gowebadmin-root',
 
       // derived from LWElement
       async domReady() {
-         await this.loadServers();
+         const token = sessionStorage.getItem('access_token');
+         if (token) {
+            await this.loadServers();
+         }
       }
 
       async loadServers() {
@@ -38,6 +41,7 @@ customElements.define('gowebadmin-root',
          const newHost = this.getNewHost();
          server.hosts.push(newHost);
          setTimeout(() => {
+            this.updateServerJSON(server);
             const hostPanel = newHost.getDom().querySelector('.host-panel');
             hostPanel.style.maxHeight = hostPanel.scrollHeight + 'px';
          });
@@ -46,6 +50,7 @@ customElements.define('gowebadmin-root',
       deleteHost(host, server) {
          const hostIndex = server.hosts.findIndex(h => h === host);
          server.hosts.splice(hostIndex, 1);
+         this.updateServerJSON(server);
       }
 
       // server
@@ -82,6 +87,7 @@ customElements.define('gowebadmin-root',
       deleteServer(server) {
          const serverIndex = this.servers.findIndex(s => s === server);
          this.servers.splice(serverIndex, 1);
+         this.updateServerJSON(server);
       }
 
       updateServerJSON(server) {
