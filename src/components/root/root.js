@@ -6,12 +6,21 @@ customElements.define('gowebadmin-root',
    class extends LWElement {  // LWElement extends HTMLElement
       constructor() {
          super(ast);
+         leanweb.onAuthFailed = this.logout;
+         this.setUrlToken();
       }
 
       // derived from LWElement
       async domReady() {
-         this.servers = await api.get('/api/servers/');
-         this.json = JSON.stringify(this.servers, null, 2);
+         await this.loadServers();
+      }
+
+      async loadServers() {
+         const res = await api.get('/api/servers/');
+         if (!res) {
+            return;
+         }
+         this.servers = await res.json();
          this.update();
       }
 
@@ -55,7 +64,12 @@ customElements.define('gowebadmin-root',
          server.applyingServer = true;
          this.update();
          const serverData = this.getServerJSONData(server, true);
-         const data = await api.post('/api/server/', serverData);
+         const res = await api.post('/api/server/', serverData);
+         if (!res) {
+            server.applyingServer = false;
+            return;
+         }
+         const data = await res.json();
          if (data.err) {
             alert(data.err);
          }
@@ -96,7 +110,12 @@ customElements.define('gowebadmin-root',
          this.applyingServers = true;
          this.update();
          const serversData = this.servers.map(server => this.getServerJSONData(server));
-         const data = await api.post('/api/servers/', serversData);
+         const res = await api.post('/api/servers/', serversData);
+         if (!res) {
+            this.applyingServers = false;
+            return;
+         }
+         const data = await res.json();
          if (data.err) {
             alert(data.err);
          }
@@ -171,6 +190,41 @@ customElements.define('gowebadmin-root',
             return retHost;
          });
          return retServer;
+      }
+
+      async loginByEnter(event) {
+         if (event?.key !== 'Enter') {
+            return;
+         }
+         await this.login()
+      }
+
+      async login() {
+         sessionStorage.setItem('access_token', this.loginToken);
+         leanweb.urlHashPath = '#/';
+         leanweb.urlHashParams = {};
+         await this.loadServers();
+      }
+
+      logout() {
+         sessionStorage.removeItem('access_token');
+         leanweb.urlHashPath = '#/login';
+         leanweb.urlHashParams = {};
+         this.update();
+      }
+
+      async urlHashChanged() {
+         if (this.setUrlToken()) {
+            await this.loadServers();
+         }
+      }
+
+      setUrlToken() {
+         const token = leanweb.urlHashParams.access_token;
+         if (token) {
+            sessionStorage.setItem('access_token', token);
+            return token;
+         }
       }
    }
 );

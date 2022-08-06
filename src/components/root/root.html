@@ -1,4 +1,4 @@
-<div class="server-container">
+<div class="server-container" lw-if="!leanweb.urlHashPath.startsWith('#/login')">
    <div class="servers">
       <div class="server-block ppwui card" lw-for="server in servers">
          <div class="input-set">
@@ -11,7 +11,7 @@
             <input type="text" class="ppwui input small" placeholder="Listen" lw-model="server.listen"
                lw-on:input="updateServerJSON(server)">
          </div>
-         <div class=" input-set">
+         <div class="input-set">
             <div class="input-label">Server Type:</div>
             <select lw-model="server.type" lw-on:input="update();updateServerJSON(server)">
                <option>https</option>
@@ -89,10 +89,19 @@
          <button lw-on:click="applyServers()" class="ppwui button small warning"
             lw-class:loading="applyingServers">Apply Changes</button>
          <button lw-on:click="toggleServersJSON()" class="ppwui button small">Get JSON</button>
+         <button lw-on:click="logout()" class="ppwui button small">Logout</button>
       </div>
 
       <div class="ppwui card servers-json-panel" lw-if="showConfigEditor">
          <div class="servers-json"></div>
       </div>
+   </div>
+</div>
+
+<div class="login-container" lw-if="leanweb.urlHashPath.startsWith('#/login')">
+   <div class="token-input-set">
+      <input type="text" class="ppwui input" placeholder="Please enter access token" lw-model="loginToken"
+         lw-on:keyup="loginByEnter($event)">
+      <button class="ppwui button primary" lw-on:click="login()">Login</button>
    </div>
 </div>

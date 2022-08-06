@@ -26,7 +26,7 @@ class APIClient {
       }
 
       if (this.sendToken) {
-         const token = localStorage.getItem('access_token');
+         const token = sessionStorage.getItem('access_token') ?? localStorage.getItem('access_token');
          if (token) {
             headers['access_token'] = token;
          }
@@ -36,7 +36,17 @@ class APIClient {
          headers: { ...this.defaultHeaders, ...headers },
          body: data ? JSON.stringify(data) : null,
       });
-      return response.json();
+
+      if (response.status === 401) {
+         leanweb?.onAuthFailed();
+      } else if (response.status === 200) {
+         if (leanweb.urlHashPath.startsWith('#/login')) {
+            leanweb.urlHashPath = '#/';
+            leanweb.urlHashParams = {};
+         }
+      }
+
+      return response;
    }
 
    post(url, data, headers) { return this._fetch('POST', url, data, headers); }
@@ -60,12 +70,4 @@ const paramsToQueryString = (params) => {
    }).reduce((acc, curr) => acc + curr, '').slice(0, -1);
 };
 
-// const apiUrl = 'http://localhost:1234';
-// const anotherApiUrl = 'http://127.0.0.1:4321';
-
 export const api = new APIClient(env.apiUrl, true);
-// export const api = new APIClient('', true);
-// export const http = new APIClient(apiUrl);
-
-// export const anotherApi = new APIClient(anotherApiUrl, true);
-// export const anotherHttp = new APIClient(anotherApiUrl);

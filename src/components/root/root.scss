@@ -73,3 +73,14 @@
     }
   }
 }
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  .token-input-set {
+    display: flex;
+    width: 400px;
+  }
+}
