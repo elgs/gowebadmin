@@ -190,15 +190,15 @@ customElements.define('gowebadmin-root',
             retHost.type = host.type;
             if (host.type === 'serve_static') {
                retHost.path = host.path;
-               if (server.type === 'https') {
-                  retHost.cert_path = host.cert_path;
-                  retHost.key_path = host.key_path;
-               }
                retHost.disable_dir_listing = host.disable_dir_listing;
             } else if (host.type === '301_redirect') {
                retHost.redirect_url = host.redirect_url;
             } else if (host.type === 'reverse_proxy') {
                retHost.forward_urls = host.forward_urls;
+            }
+            if (server.type === 'https') {
+               retHost.cert_path = host.cert_path;
+               retHost.key_path = host.key_path;
             }
             retHost.disabled = host.disabled;
             return retHost;
