@@ -34,27 +34,40 @@
                      <input type="text" class="ppwui input small" placeholder="Host Name" lw-model="host.name"
                         lw-on:input="updateServerJSON(server)">
                   </div>
-                  <div class="input-set" lw-if="server.type==='https' || !host.https_redirect_port">
+                  <div class="input-set">
+                     <div class="input-label">Host Type:</div>
+                     <select lw-model="host.type" lw-on:input="update();updateServerJSON(server)">
+                        <option>serve_static</option>
+                        <option>301_redirect</option>
+                        <option>reverse_proxy</option>
+                     </select>
+                  </div>
+                  <div class="input-set" lw-if="host.type==='serve_static'">
                      <div class="input-label">Web Root Path:</div>
                      <input type="text" class="ppwui input small" placeholder="Path" lw-model="host.path"
                         lw-on:input="updateServerJSON(server)">
                   </div>
-                  <div class="input-set" lw-if="server.type==='http'">
-                     <div class="input-label">Https Redirect:</div>
-                     <input type="number" class="ppwui input small" placeholder="Https Redirect Port"
-                        lw-model="host.https_redirect_port" max="65535" min="0" lw-on:input="updateServerJSON(server)">
+                  <div class="input-set" lw-if="host.type==='301_redirect'">
+                     <div class="input-label">Redirect URL:</div>
+                     <input type="text" class="ppwui input small" placeholder="Redirect URL"
+                        lw-model="host.redirect_url" lw-on:input="updateServerJSON(server)">
                   </div>
-                  <div class="input-set" lw-if="server.type==='https'">
+                  <div class="input-set" lw-if="host.type==='reverse_proxy'">
+                     <div class="input-label">Forward URLs:</div>
+                     <input type="text" class="ppwui input small" placeholder="Redirect URL"
+                        lw-model="host.forward_urls" lw-on:input="updateServerJSON(server)">
+                  </div>
+                  <div class="input-set" lw-if="server.type==='https' && host.type==='serve_static'">
                      <div class="input-label">Key Path:</div>
                      <input type="text" class="ppwui input small" placeholder="Key Path" lw-model="host.key_path"
                         lw-on:input="updateServerJSON(server)">
                   </div>
-                  <div class="input-set" lw-if="server.type==='https'">
+                  <div class="input-set" lw-if="server.type==='https' && host.type==='serve_static'">
                      <div class="input-label">Cert Path:</div>
                      <input type="text" class="ppwui input small" placeholder="Cert Path" lw-model="host.cert_path"
                         lw-on:input="updateServerJSON(server)">
                   </div>
-                  <div class="input-set" lw-if="server.type==='https' || !host.https_redirect_port">
+                  <div class="input-set" lw-if="host.type==='serve_static'">
                      <div class="input-label">Disable Listing:</div>
                      <input type="checkbox" placeholder="Disable Dir Listing" lw-model="host.disable_dir_listing"
                         lw-on:input="updateServerJSON(server)">
