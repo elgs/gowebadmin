@@ -57,12 +57,12 @@
                      <input type="text" class="ppwui input small" placeholder="Redirect URL"
                         lw-model="host.forward_urls" lw-on:input="updateServerJSON(server)">
                   </div>
-                  <div class="input-set" lw-if="server.type==='https' && host.type==='serve_static'">
+                  <div class="input-set" lw-if="server.type==='https'">
                      <div class="input-label">Key Path:</div>
                      <input type="text" class="ppwui input small" placeholder="Key Path" lw-model="host.key_path"
                         lw-on:input="updateServerJSON(server)">
                   </div>
-                  <div class="input-set" lw-if="server.type==='https' && host.type==='serve_static'">
+                  <div class="input-set" lw-if="server.type==='https'">
                      <div class="input-label">Cert Path:</div>
                      <input type="text" class="ppwui input small" placeholder="Cert Path" lw-model="host.cert_path"
                         lw-on:input="updateServerJSON(server)">
