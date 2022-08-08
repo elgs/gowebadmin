@@ -78,8 +78,7 @@
                         lw-on:input="updateServerJSON(server)">
                   </div>
                   <div class="button-block">
-                     <button lw-on:click="deleteHost(host, server)" class="ppwui button danger small">Delete
-                        Host</button>
+                     <button lw-on:click="deleteHost(host, server)" class="ppwui button danger small">Delete</button>
                      <button lw-on:click="openHost(host, server)" class="ppwui button small">Open Host</button>
                   </div>
                </div>
@@ -88,9 +87,9 @@
          <div class="button-block">
             <button lw-on:click="newHost(server)" class="ppwui button primary small">New Host</button>
             <button lw-on:click="applyServer(server)" class="ppwui button small warning"
-               lw-class:loading="server.applyingServer">Apply Changes</button>
-            <button lw-on:click="deleteServer(server)" class="ppwui button danger small">Delete Server</button>
-            <button lw-on:click="toggleServerJSON(server)" class="ppwui button small">Get JSON</button>
+               lw-class:loading="server.applyingServer">Apply</button>
+            <button lw-on:click="deleteServer(server)" class="ppwui button danger small">Delete</button>
+            <button lw-on:click="toggleServerJSON(server)" class="ppwui button small">JSON</button>
          </div>
 
          <div class="ppwui card server-json-panel" lw-if="server.showConfigEditor">
@@ -101,8 +100,10 @@
       <div class="button-block">
          <button lw-on:click="newServer()" class="ppwui button primary small">New Server</button>
          <button lw-on:click="applyServers()" class="ppwui button small warning"
-            lw-class:loading="applyingServers">Apply Changes</button>
-         <button lw-on:click="toggleServersJSON()" class="ppwui button small">Get JSON</button>
+            lw-class:loading="applyingServers">Apply</button>
+         <button lw-on:click="saveServers()" class="ppwui button small warning"
+            lw-class:loading="savingServers">Save</button>
+         <button lw-on:click="toggleServersJSON()" class="ppwui button small">JSON</button>
          <button lw-on:click="logout()" class="ppwui button small">Logout</button>
       </div>
 

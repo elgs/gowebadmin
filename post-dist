@@ -2,3 +2,5 @@
 
 mkdir -p ../../go/goweb/webadmin/
 cp -R ./dist/* ../../go/goweb/webadmin/
+rm -rf ../../go/goweb/webadmin/gowebadmin.js.LICENSE.txt
+rm -rf ../../go/goweb/webadmin/gowebadmin.js.map

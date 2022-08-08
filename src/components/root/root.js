@@ -123,11 +123,12 @@ customElements.define('gowebadmin-root',
       async applyServers() {
          this.applyingServers = true;
          this.update();
-         const serversData = this.servers.map(server => this.getServerJSONData(server));
-         const res = await api.post('/api/servers/', serversData);
+         const serversData = this.servers.map(server => this.getServerJSONData(server, true));
+         const res = await api.patch('/api/servers/', serversData);
          if (!res) {
             this.applyingServers = false;
             return;
+            this.update();
          }
          const data = await res.json();
          if (data.err) {
@@ -135,6 +136,26 @@ customElements.define('gowebadmin-root',
          }
          setTimeout(() => {
             this.applyingServers = false;
+            this.update();
+         }, 250);
+      }
+
+      async saveServers() {
+         this.savingServers = true;
+         this.update();
+         const serversData = this.servers.map(server => this.getServerJSONData(server));
+         const res = await api.post('/api/servers/', serversData);
+         if (!res) {
+            this.savingServers = false;
+            this.update();
+            return;
+         }
+         const data = await res.json();
+         if (data.err) {
+            alert(data.err);
+         }
+         setTimeout(() => {
+            this.savingServers = false;
             this.update();
          }, 250);
       }
