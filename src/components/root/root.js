@@ -31,11 +31,7 @@ customElements.define('gowebadmin-root',
 
       getNewHost() {
          return {
-            name: 'example.com',
-            path: "/path/to/webroot",
             type: 'serve_static',
-            cert_path: "/path/to/certfile",
-            key_path: "/path/to/keyfile",
             uiActive: true,
          };
       }
@@ -208,18 +204,22 @@ customElements.define('gowebadmin-root',
                retHost.runtime_id = host.runtime_id;
             }
             retHost.name = host.name;
-            retHost.type = host.type;
-            if (host.type === 'serve_static') {
-               retHost.path = host.path;
-               retHost.disable_dir_listing = host.disable_dir_listing;
-            } else if (host.type === '301_redirect') {
-               retHost.redirect_url = host.redirect_url;
-            } else if (host.type === 'reverse_proxy') {
-               retHost.forward_urls = host.forward_urls;
-            }
-            if (server.type === 'https') {
-               retHost.cert_path = host.cert_path;
-               retHost.key_path = host.key_path;
+            if (server.type === 'http' || server.type === 'https') {
+               retHost.type = host.type;
+               if (host.type === 'serve_static') {
+                  retHost.path = host.path;
+                  retHost.disable_dir_listing = host.disable_dir_listing;
+               } else if (host.type === '301_redirect') {
+                  retHost.redirect_url = host.redirect_url;
+               } else if (host.type === 'reverse_proxy') {
+                  retHost.forward_urls = host.forward_urls;
+               }
+               if (server.type === 'https') {
+                  retHost.cert_path = host.cert_path;
+                  retHost.key_path = host.key_path;
+               }
+            } else if (server.type === 'tcp') {
+               retHost.upstream = host.upstream;
             }
             retHost.disabled = host.disabled;
             return retHost;
