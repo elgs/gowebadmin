@@ -10,6 +10,6 @@
 	"author": "",
 	"license": "ISC",
 	"devDependencies": {
-		"@babel/runtime": "^7.18.9"
+		"@babel/runtime": "^7.19.0"
 	}
 }
