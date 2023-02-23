@@ -28,7 +28,7 @@ class APIClient {
       if (this.sendToken) {
          const token = sessionStorage.getItem('access_token') ?? localStorage.getItem('access_token');
          if (token) {
-            headers['access_token'] = token;
+            headers['authorization'] = token;
          }
       }
       const response = await fetch(url, {

@@ -124,7 +124,6 @@ customElements.define('gowebadmin-root',
          if (!res) {
             this.applyingServers = false;
             return;
-            this.update();
          }
          const data = await res.json();
          if (data.err) {
@@ -189,20 +188,14 @@ customElements.define('gowebadmin-root',
          }
       }
 
-      getServerJSONData(server, withRuntimeId = false) {
+      getServerJSONData(server) {
          const retServer = {};
-         if (withRuntimeId) {
-            retServer.runtime_id = server.runtime_id;
-         }
          retServer.name = server.name;
          retServer.type = server.type;
          retServer.listen = server.listen;
          retServer.disabled = server.disabled;
          retServer.hosts = server.hosts.map(host => {
             const retHost = {};
-            if (withRuntimeId) {
-               retHost.runtime_id = host.runtime_id;
-            }
             retHost.name = host.name;
             if (server.type === 'http' || server.type === 'https') {
                retHost.type = host.type;
